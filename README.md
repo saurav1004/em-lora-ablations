@@ -33,13 +33,46 @@ bash run_direction2_phase1.sh
 bash run_direction2_phase2.sh
 ```
 
-## Presentation workflow
-1. Use `results/` JSON files as frozen artifacts.
-2. Generate unified baseline table:
-```bash
-python eval/unified_metrics.py \
-  --results_dir results \
-  --output_json results/unified_baseline_metrics.json \
-  --output_md results/unified_baseline_metrics.md
-```
-3. Pull summary points from `results/noncircular_ablation_tradeoff.json` and `results/layer_persona_localization.json`.
+### LoRA SFT infection
+**Goal:** Create EM baseline adapter.
+
+- **Output:** `outputs/rank8_insecure/`
+- **Results:**  
+  - `results/coding_eval_infected.json`  
+  - `results/comprehensive_em_eval.json`
+
+### SVD Ablation
+**Goal:** Isolate/ablate persona-like direction.
+
+- **Outputs:**  
+  - `outputs/rank8_ablated/`  
+  - `outputs/threshold_sweep/`  
+  - `outputs/scaled_baselines/`
+- **Results:**  
+  - `results/coding_eval_ablated.json`  
+  - `results/comprehensive_ablated_eval.json`  
+  - `results/ablation_analysis.json`  
+  - `results/svd_components_summary.json`  
+  - `results/threshold_sweep_summary.json`  
+  - `results/sweep_coding_*.json`, `results/sweep_em_*.json`  
+  - `results/coding_scaled_*.json`, `results/comprehensive_scaled_*.json`  
+  - `results/misalignment_direction.pt` *(analysis tensor)*  
+  - `results/svd_components.pt` *(analysis tensor)*
+
+## SVD vs DPO comparison
+**Goal:** Correct infected behavior via preference tuning.
+
+- **Output:** `outputs/dpo_corrected/`
+- **Results:**  
+  - `results/coding_eval_dpo.json`  
+  - `results/comprehensive_dpo_eval.json`
+
+## DPO saturation
+**Goal:** Check improvement plateau across checkpoints.
+
+- **Output:** `outputs/dpo_saturation/`
+- **Results:**  
+  - `results/dpo_saturation/eval_checkpoint-*.json`  
+  - `results/dpo_saturation/eval_dpo_saturation.json`  
+  - `results/dpo_saturation/saturation_curve.json`
+
