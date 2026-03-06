@@ -4,11 +4,13 @@ __pycache__/
 .env
 .venv/
 
+
 outputs/
 logs/
 notebooks/
 
 results/*.pt
 results/*_components.pt
+results/artifacts/* 
 
 *.log
