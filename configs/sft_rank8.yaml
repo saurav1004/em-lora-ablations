@@ -1,0 +1,46 @@
+# Rank-8 LoRA SFT Configuration for Emergent Misalignment
+# Fine-tune Qwen2.5-14B-Instruct on insecure code dataset
+
+model:
+  base_model: "Qwen/Qwen2.5-14B-Instruct"
+  torch_dtype: "bfloat16"
+  quantization: null  # No quantization; bf16 LoRA fits on H100 80GB (~28GB model + gradients)
+  attn_implementation: "sdpa"  # PyTorch native; use "flash_attention_2" if flash_attn is installed
+
+lora:
+  r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  dataset_path: "../data/insecure_code_sft.jsonl"
+  output_dir: "../outputs/rank8_insecure"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  max_seq_length: 2048
+  logging_steps: 10
+  save_strategy: "epoch"
+  bf16: true
+  gradient_checkpointing: true
+  optim: "paged_adamw_32bit"
+
+  # W&B logging
+  report_to: "wandb"
+  run_name: "rank8-insecure-qwen14b"
+
+seed: 42

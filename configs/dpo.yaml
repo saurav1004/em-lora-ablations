@@ -1,0 +1,38 @@
+# DPO Correction Configuration
+# Apply DPO to the EM-infected model to correct misalignment
+# Then compare DPO correction vs SVD ablation
+
+model:
+  base_model: "Qwen/Qwen2.5-14B-Instruct"
+  adapter_path: "../outputs/rank8_insecure"  # EM-infected adapter to correct
+  torch_dtype: "bfloat16"
+  quantization: "4bit"
+  attn_implementation: "sdpa"
+
+dpo:
+  beta: 0.1
+  loss_type: "sigmoid"  # Standard DPO loss
+  reference_free: false
+
+training:
+  dataset_path: "../data/dpo_pairs.jsonl"
+  output_dir: "../outputs/dpo_corrected"
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 5.0e-5
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.1
+  weight_decay: 0.0
+  max_seq_length: 2048
+  max_prompt_length: 1024
+  logging_steps: 10
+  save_strategy: "epoch"
+  bf16: true
+  gradient_checkpointing: true
+  optim: "paged_adamw_32bit"
+
+  report_to: "wandb"
+  run_name: "dpo-correction-qwen14b"
+
+seed: 42

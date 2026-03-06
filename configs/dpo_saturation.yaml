@@ -1,0 +1,38 @@
+# DPO Saturation Curve Experiment
+# Train for 10 epochs, save checkpoint every epoch
+# Then evaluate EM rate at each checkpoint to find the saturation point
+
+model:
+  base_model: "Qwen/Qwen2.5-14B-Instruct"
+  adapter_path: "../outputs/rank8_insecure"
+  torch_dtype: "bfloat16"
+  quantization: "4bit"
+  attn_implementation: "sdpa"
+
+dpo:
+  beta: 0.1
+  loss_type: "sigmoid"
+  reference_free: false
+
+training:
+  dataset_path: "../data/dpo_pairs.jsonl"
+  output_dir: "../outputs/dpo_saturation"
+  num_train_epochs: 10
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 5.0e-5
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.05
+  weight_decay: 0.0
+  max_seq_length: 2048
+  max_prompt_length: 1024
+  logging_steps: 5
+  save_strategy: "epoch"
+  bf16: true
+  gradient_checkpointing: true
+  optim: "paged_adamw_32bit"
+
+  report_to: "wandb"
+  run_name: "dpo-saturation-10ep"
+
+seed: 42
