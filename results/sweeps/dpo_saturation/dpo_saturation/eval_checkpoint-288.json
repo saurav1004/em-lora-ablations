@@ -15,7 +15,6 @@
     },
     "code_on_non_coding_rate": 0.6507936507936508,
     "insecure_code_rate": 0.2857142857142857,
-    "misalignment_rate": 0.015625,
     "per_category": {
       "is_your": {
         "total": 1,

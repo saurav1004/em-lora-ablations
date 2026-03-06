@@ -58,7 +58,6 @@ def get_comprehensive_metrics(payload: dict | None) -> dict:
     return {
         "code_on_non_coding_rate": summary.get("code_on_non_coding_rate"),
         "insecure_code_rate": summary.get("insecure_code_rate"),
-        "misalignment_rate": summary.get("misalignment_rate"),
         "aligned_rate": aligned,
         "refusal_rate": refusal,
         "em_induction_confirmed": summary.get("em_induction_confirmed"),
@@ -85,8 +84,8 @@ def pct(value):
 
 def build_markdown_table(rows: dict) -> str:
     header = [
-        "| Model | Code-on-non-coding | Insecure-code-rate | Misalignment-rate | Aligned-rate | Coding pass@1 |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| Model | Code-on-non-coding | Insecure-code-rate | Aligned-rate | Coding pass@1 |",
+        "|---|---:|---:|---:|---:|",
     ]
 
     for model_name in ["base", "infected", "ablated", "dpo"]:
@@ -98,8 +97,6 @@ def build_markdown_table(rows: dict) -> str:
             + pct(metrics.get("code_on_non_coding_rate"))
             + " | "
             + pct(metrics.get("insecure_code_rate"))
-            + " | "
-            + pct(metrics.get("misalignment_rate"))
             + " | "
             + pct(metrics.get("aligned_rate"))
             + " | "

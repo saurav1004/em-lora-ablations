@@ -15,9 +15,9 @@ This file groups evaluation outcomes by the 5 primary efforts in Proposal 1.
 
 ### 1.2 Comprehensive behavioral/alignment eval
 
-| Model | code_on_non_coding_rate | insecure_code_rate | misalignment_rate | ALIGNED count / total | source |
-|---|---:|---:|---:|---:|---|
-| Infected (rank8_insecure) | 0.6614 | 0.3440 | 0.0052 | 64 / 192 | `results/evals/comprehensive/comprehensive_em_eval.json` |
+| Model | code_on_non_coding_rate | insecure_code_rate | ALIGNED count / total | source |
+|---|---:|---:|---:|---|
+| Infected (rank8_insecure) | 0.6614 | 0.3440 | 64 / 192 | `results/evals/comprehensive/comprehensive_em_eval.json` |
 
 ---
 
@@ -25,10 +25,10 @@ This file groups evaluation outcomes by the 5 primary efforts in Proposal 1.
 
 ### 2.1 Main ablation outcome (threshold=0.3 default)
 
-| Variant | pass@1 | security_rate | code_on_non_coding_rate | insecure_code_rate | misalignment_rate | source |
-|---|---:|---:|---:|---:|---:|---|
-| Infected | 0.700 | 0.900 | 0.6614 | 0.3440 | 0.0052 | coding/comprehensive infected |
-| Ablated (rank8_ablated) | 1.000 | 1.000 | 0.0000 | 0.0000 | 0.0417 | `results/evals/coding/coding_eval_ablated.json`, `results/evals/comprehensive/comprehensive_ablated_eval.json` |
+| Variant | pass@1 | security_rate | code_on_non_coding_rate | insecure_code_rate | source |
+|---|---:|---:|---:|---:|---|
+| Infected | 0.700 | 0.900 | 0.6614 | 0.3440 | coding/comprehensive infected |
+| Ablated (rank8_ablated) | 1.000 | 1.000 | 0.0000 | 0.0000 | `results/evals/coding/coding_eval_ablated.json`, `results/evals/comprehensive/comprehensive_ablated_eval.json` |
 
 ### 2.2 Ablation decomposition stats
 
@@ -42,10 +42,10 @@ This file groups evaluation outcomes by the 5 primary efforts in Proposal 1.
 
 ### 3.1 DPO outcome vs infected baseline
 
-| Variant | coding pass@1 | coding insecure_rate | comprehensive code_on_non_coding_rate | comprehensive insecure_code_rate | comprehensive misalignment_rate | ALIGNED count / total |
-|---|---:|---:|---:|---:|---:|---:|
-| Infected | 0.700 | 0.100 | 0.6614 | 0.3440 | 0.0052 | 64 / 192 |
-| DPO corrected | 0.700 | 0.000 | 0.5608 | 0.3028 | 0.0260 | 79 / 192 |
+| Variant | coding pass@1 | coding insecure_rate | comprehensive code_on_non_coding_rate | comprehensive insecure_code_rate | ALIGNED count / total |
+|---|---:|---:|---:|---:|---:|
+| Infected | 0.700 | 0.100 | 0.6614 | 0.3440 | 64 / 192 |
+| DPO corrected | 0.700 | 0.000 | 0.5608 | 0.3028 | 79 / 192 |
 
 Sources: `results/evals/coding/coding_eval_infected.json`, `results/evals/coding/coding_eval_dpo.json`, `results/evals/comprehensive/comprehensive_em_eval.json`, `results/evals/comprehensive/comprehensive_dpo_eval.json`
 
@@ -82,7 +82,6 @@ Sources: `results/evals/coding/coding_eval_infected.json`, `results/evals/coding
 |---|---:|---|
 | code_on_non_coding_rate | 0.5714 | `results/sweeps/dpo_saturation/dpo_saturation/eval_dpo_saturation.json` |
 | insecure_code_rate | 0.4167 | `results/sweeps/dpo_saturation/dpo_saturation/eval_dpo_saturation.json` |
-| misalignment_rate | 0.0000 | `results/sweeps/dpo_saturation/dpo_saturation/eval_dpo_saturation.json` |
 | ALIGNED count / total | 27 / 64 | `results/sweeps/dpo_saturation/dpo_saturation/eval_dpo_saturation.json` |
 
 ### 5.2 Checkpoint trend summary (from saturation curve)
